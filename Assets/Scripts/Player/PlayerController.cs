@@ -32,8 +32,18 @@ public class PlayerController : MonoBehaviour
 
     public PlayerState State = PlayerState.NotDashing;
 
+    void Start()
+    {
+        rigidbody2D.fixedAngle = true;
+    }
+
     public void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            this.rigidbody2D.gravityScale = -this.rigidbody2D.gravityScale;
+        }
+
         Vector3 pos = new Vector3();
 
         // Counts Dash Frames
@@ -66,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
             Jumps--;
         }
+        Debug.Log(transform.rotation);
     }
 
     void OnCollisionEnter2D(Collision2D coll)
