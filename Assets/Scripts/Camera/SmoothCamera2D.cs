@@ -8,9 +8,9 @@ public class SmoothCamera2D : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Transform target;
 
-    void Start()
+    public void Initialize(Transform target)
     {
-        target = PlayerController.GetInstance().transform;
+        this.target = target;
     }
 
     // Update is called once per frame
