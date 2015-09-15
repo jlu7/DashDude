@@ -11,12 +11,13 @@ public class Bootstrap : MonoBehaviour {
 
     void InitializeGame()
     {
-        Levels.GetInstance().Initialize();
+        
         GameObject cam = GameObject.Find("Main Camera");
         SmoothCamera2D smoothCam2d = cam.GetComponent<SmoothCamera2D>();
-        PlayerController pc = PlayerController.GetInstance();
+        //PlayerController pc = PlayerController.GetInstance();
+		Levels.GetInstance().Initialize(smoothCam2d);
 
-        smoothCam2d.Initialize(pc.gameObject.transform);
+        
 
     }
 }

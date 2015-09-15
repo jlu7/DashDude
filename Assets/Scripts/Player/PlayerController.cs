@@ -2,19 +2,19 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Actor
 {
 
-    private static PlayerController PC;
+    //private static PlayerController PC;
 
-    public static PlayerController GetInstance()
+    /*public static PlayerController GetInstance()
     {
         if (PC == null)
         {
             PC = ((GameObject)Instantiate((Resources.Load("Player/Player") as GameObject))).GetComponent<PlayerController>();
         }
         return PC;
-    }
+    }*/
 
     public int Jumps = 2;
 
@@ -32,10 +32,26 @@ public class PlayerController : MonoBehaviour
 
     public PlayerState State = PlayerState.NotDashing;
 
+	public delegate void PlayerStateChangeEvent(PlayerState pState);
+	public PlayerStateChangeEvent PlayerStateChange;
+
     void Start()
     {
         rigidbody2D.fixedAngle = true;
+		PlayerStateChanged(PlayerState.NotDashing);
+		Levels.GetInstance().ActorCollision += OnCollisionDetected;
     }
+
+	void OnDestroy()
+	{
+		Levels.GetInstance().ActorCollision -= OnCollisionDetected;
+	}
+
+	void PlayerStateChanged(PlayerState pState)
+	{
+		State = pState;
+		if(null != PlayerStateChange) PlayerStateChange(pState);
+	}
 
     public void FixedUpdate()
     {
@@ -55,7 +71,8 @@ public class PlayerController : MonoBehaviour
         // End of Dash
         if (doOnce && count == 0)
         {
-            State = PlayerState.NotDashing;
+            //State = PlayerState.NotDashing;
+			PlayerStateChanged(PlayerState.NotDashing);
             this.rigidbody2D.velocity = new Vector2(0,0);
             rigidbody2D.gravityScale = 1;
             doOnce = false;
@@ -64,7 +81,7 @@ public class PlayerController : MonoBehaviour
         // Check to see if player has clicked to dash
         if (Input.GetMouseButtonDown(0) && !doOnce && Jumps > 0)
         {
-            State = PlayerState.Dashing;
+			PlayerStateChanged(PlayerState.Dashing);
             count = 5;
             pos = Input.mousePosition;
             pos= Camera.main.ScreenToWorldPoint(pos);
@@ -76,8 +93,28 @@ public class PlayerController : MonoBehaviour
 
             Jumps--;
         }
-        Debug.Log(transform.rotation);
+        //Debug.Log(transform.rotation);
     }
+
+	void OnCollisionDetected(Actor reporter, Actor collider)
+	{
+		Debug.Log("OnCollisionDetected: " + reporter.GetID() + " , " + collider.GetID());
+		if(collider.GetID() == this.GetID())
+		{
+			if(reporter.GetID() == "Enemy")
+			{
+				if(State == PlayerState.Dashing)
+				{
+					Jumps = 2;
+				}
+				else if(State == PlayerState.NotDashing)
+				{
+					Levels.GetInstance().RestartLevel();
+				}
+
+			}
+		}
+	}
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -88,7 +125,8 @@ public class PlayerController : MonoBehaviour
 
         if (coll.gameObject.tag == "Death")
         {
-            Application.LoadLevel("main");
+			Levels.GetInstance().RestartLevel();
+			Destroy(this);
         }
 
         if (coll.gameObject.tag == "Enemy" && State == PlayerState.Dashing)
