@@ -15,17 +15,18 @@ public class Levels : Singleton<Levels>
 	public ActorCollisionEvent ActorCollision;
 
 
-	public PlayerController.PlayerState CurrentPlayerState = PlayerController.PlayerState.NotDashing;
+    public PlayerController.PlayerState CurrentPlayerState { get; private set; }
 
     public void Initialize(SmoothCamera2D camera)
     {
 		this.camera = camera;
+        CurrentPlayerState = PlayerController.PlayerState.NotDashing;
 		StartLevel();
     }
 
 	public void StartLevel()
 	{
-		GameObject level1Prefab = Resources.Load("Levels/Level1") as GameObject;
+		GameObject level1Prefab = Resources.Load("Levels/Level2") as GameObject;
 		GameObject level1 = Instantiate(level1Prefab) as GameObject;
 		CurrentLevel = level1.AddComponent<LevelController>();
 		CurrentLevel.Initialize();

@@ -85,7 +85,7 @@ public class PlayerController : Actor
             count = 5;
             pos = Input.mousePosition;
             pos= Camera.main.ScreenToWorldPoint(pos);
-            Debug.Log(pos);
+            //Debug.Log(pos);
             pos = pos - transform.position;
             doOnce = true;
             rigidbody2D.gravityScale = 0;
