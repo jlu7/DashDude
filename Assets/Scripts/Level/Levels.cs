@@ -11,9 +11,6 @@ public class Levels : Singleton<Levels>
 	protected LevelController CurrentLevel;
 	protected SmoothCamera2D camera;
 
-	public delegate void ActorCollisionEvent(Actor reporter, Actor collider);
-	public ActorCollisionEvent ActorCollision;
-
 
     public PlayerController.PlayerState CurrentPlayerState { get; private set; }
 

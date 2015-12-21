@@ -11,7 +11,6 @@ public class StaticEnemyTrigger : Actor
 		if(colliderActor)
 		{
 			Debug.Log("Collider is actor");
-			Levels.GetInstance().ActorCollision(this, colliderActor);
 			if(colliderActor.GetID() == "Player" && 
 			   Levels.GetInstance().CurrentPlayerState == PlayerController.PlayerState.Dashing)
 			{

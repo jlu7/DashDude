@@ -19,7 +19,12 @@ public class TriggerVolume : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        OnVolumeEntered(coll);
+        Debug.Log("This: " + gameObject.tag + " : " + gameObject.name + " , Hit: " + coll.gameObject.tag + " : " + coll.gameObject.name);
+        if(null != OnVolumeEntered)
+        {
+            OnVolumeEntered(coll);
+        }
+            
     }
 }
 

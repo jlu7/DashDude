@@ -39,12 +39,11 @@ public class PlayerController : Actor
     {
         rigidbody2D.fixedAngle = true;
 		PlayerStateChanged(PlayerState.NotDashing);
-		Levels.GetInstance().ActorCollision += OnCollisionDetected;
     }
 
 	void OnDestroy()
 	{
-		Levels.GetInstance().ActorCollision -= OnCollisionDetected;
+		//Levels.GetInstance().ActorCollision -= OnCollisionDetected;
 	}
 
 	void PlayerStateChanged(PlayerState pState)
