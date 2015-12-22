@@ -9,6 +9,7 @@ public class PlayerController : Actor
 
     private IEnumerator COCharacterMovement;
     public float speed = 3f;
+    public TriggerVolume triggerVolume;
 
     private bool doOnce = false;
     private int count = 0;
@@ -28,6 +29,7 @@ public class PlayerController : Actor
     {
         rigidbody2D.fixedAngle = true;
 		PlayerStateChanged(PlayerState.NotDashing);
+        triggerVolume.OnVolumeEntered += OnCollisionDetected;
     }
 
 	void OnDestroy()
@@ -84,24 +86,22 @@ public class PlayerController : Actor
         //Debug.Log(transform.rotation);
     }
 
-	void OnCollisionDetected(Actor reporter, Actor collider)
+	void OnCollisionDetected(Actor collideActor)
 	{
-		Debug.Log("OnCollisionDetected: " + reporter.GetID() + " , " + collider.GetID());
-		if(collider.GetID() == this.GetID())
+		//Debug.Log("OnCollisionDetected: " + reporter.GetID() + " , " + collider.GetID());
+		if(collideActor.GetID() == "Enemy")
 		{
-			if(reporter.GetID() == "Enemy")
+			if(State == PlayerState.Dashing)
 			{
-				if(State == PlayerState.Dashing)
-				{
-					Jumps = 2;
-				}
-				else if(State == PlayerState.NotDashing)
-				{
-					Levels.GetInstance().RestartLevel();
-				}
-
+				Jumps = 2;
 			}
+			else if(State == PlayerState.NotDashing)
+			{
+				Levels.GetInstance().RestartLevel();
+			}
+
 		}
+		
 	}
 
     void OnCollisionEnter2D(Collision2D coll)
