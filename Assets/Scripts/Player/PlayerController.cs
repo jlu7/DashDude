@@ -5,17 +5,6 @@ using System.Collections;
 public class PlayerController : Actor
 {
 
-    //private static PlayerController PC;
-
-    /*public static PlayerController GetInstance()
-    {
-        if (PC == null)
-        {
-            PC = ((GameObject)Instantiate((Resources.Load("Player/Player") as GameObject))).GetComponent<PlayerController>();
-        }
-        return PC;
-    }*/
-
     public int Jumps = 2;
 
     private IEnumerator COCharacterMovement;

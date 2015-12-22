@@ -9,7 +9,7 @@ public class TriggerVolume : MonoBehaviour
 {
     BoxCollider2D collider;
 
-    public delegate void TriggerEntered(Collider2D coll);
+    public delegate void TriggerEntered(Actor coll);
     public TriggerEntered OnVolumeEntered;
 
     void Awake()
@@ -20,9 +20,10 @@ public class TriggerVolume : MonoBehaviour
     void OnTriggerEnter2D(Collider2D coll)
     {
         Debug.Log("This: " + gameObject.tag + " : " + gameObject.name + " , Hit: " + coll.gameObject.tag + " : " + coll.gameObject.name);
+        Actor collActor = coll.gameObject.transform.parent.GetComponent<Actor>();
         if(null != OnVolumeEntered)
         {
-            OnVolumeEntered(coll);
+            OnVolumeEntered(collActor);
         }
             
     }

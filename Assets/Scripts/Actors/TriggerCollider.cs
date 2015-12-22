@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 
@@ -20,6 +20,6 @@ public class TriggerCollider : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D coll)
 	{
 		Debug.Log("Collided With trigger");
-		if(null != Collided) Collided(this.gameObject, coll.gameObject);
+		if(null != Collided) Collided(this.transform.parent.gameObject, coll.transform.parent.gameObject);
 	}
 }

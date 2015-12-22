@@ -18,10 +18,7 @@ public class BouncyEnemyBrain : Actor {
         if (null != CollideVolume)
         {
             triggerVolume = CollideVolume.GetComponent<TriggerVolume>();
-            triggerVolume.OnVolumeEntered += (Collider2D coll) =>
-                {
-                    //Debug.Log("Hit: " + coll.gameObject.name);
-                };
+            triggerVolume.OnVolumeEntered += TriggerEnter;
         }
     }
 
@@ -29,7 +26,7 @@ public class BouncyEnemyBrain : Actor {
     {
         if(null != MovementVolume)
         {
-            //rb2d.AddForce(GetDirectionWithinBounds(MovementVolume.GetComponent<BoxCollider2D>()));
+            rb2d.AddForce(GetDirectionWithinBounds(MovementVolume.GetComponent<BoxCollider2D>()));
         }
         //rb2d.AddForce(new Vector2(1, 0));
         //Debug.Log("[ " + this.transform.position.x + " , " + this.transform.position.y + " ]");
@@ -55,9 +52,10 @@ public class BouncyEnemyBrain : Actor {
         return CurrentVector;
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    void TriggerEnter(Actor colliderActor)
     {
-        Actor colliderActor = coll.gameObject.GetComponent<PlayerController>();
+        Debug.Log(colliderActor);
+        //Actor colliderActor = coll.gameObject.GetComponent<TriggerVolume>().transform.parent.GetComponent<Actor>();
 
         if (colliderActor)
         {
