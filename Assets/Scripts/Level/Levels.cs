@@ -27,6 +27,7 @@ public class Levels : Singleton<Levels>
 		GameObject level1 = Instantiate(level1Prefab) as GameObject;
 		CurrentLevel = level1.AddComponent<LevelController>();
 		CurrentLevel.Initialize();
+		GlobalController.GetInstance().Initialize();
 		camera.Initialize(CurrentLevel.Player.transform);
 		PlayerController pc = CurrentLevel.Player;
 		pc.PlayerStateChange += (PlayerController.PlayerState ps) => CurrentPlayerState = ps;

@@ -83,6 +83,7 @@ public class PlayerController : Actor
 
             Jumps--;
         }
+		
         //Debug.Log(transform.rotation);
     }
 
@@ -99,9 +100,7 @@ public class PlayerController : Actor
 			{
 				Levels.GetInstance().RestartLevel();
 			}
-
 		}
-		
 	}
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -124,6 +123,9 @@ public class PlayerController : Actor
         if (coll.gameObject.tag == "Player" && State == PlayerState.Dashing)
         {
         }
+		if (coll.gameObject.tag == "Gem")
+		{
+		}
     }
 
 }
