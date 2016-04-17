@@ -11,7 +11,7 @@ public class Levels : Singleton<Levels>
 	protected LevelController CurrentLevel;
 	protected SmoothCamera2D camera;
 
-
+    public PlayerController PC { get; private set; }
     public PlayerController.PlayerState CurrentPlayerState { get; private set; }
 
     public void Initialize(SmoothCamera2D camera)
@@ -29,8 +29,10 @@ public class Levels : Singleton<Levels>
 		CurrentLevel.Initialize();
 		GlobalController.GetInstance().Initialize();
 		camera.Initialize(CurrentLevel.Player.transform);
-		PlayerController pc = CurrentLevel.Player;
-		pc.PlayerStateChange += (PlayerController.PlayerState ps) => CurrentPlayerState = ps;
+        PC = CurrentLevel.Player;
+        level1.transform.Find("Images/BG Trees 1").GetComponent<Parallax>().Begin();
+        level1.transform.Find("Images/BG Trees 2").GetComponent<Parallax>().Begin();
+        PC.PlayerStateChange += (PlayerController.PlayerState ps) => CurrentPlayerState = ps;
 		levelRunning = true;
 	}
 
