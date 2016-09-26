@@ -11,26 +11,28 @@ public class UIController : MonoBehaviour
     private static UIController VC;
     private static Stack<Transform> Views;
     private Transform AnchorRef;
+    public static BottomBar BottomBarRef;
 
     public static UIController GetInstance()
     {
         if (VC == null)
         {
-            VC = new GameObject("ViewController").AddComponent<UIController>();
+            VC = new GameObject("UIController").AddComponent<UIController>();
         }
         return VC;
     }
 
-    public void Initialize(Transform anchorRef)
+    public void Initialize(Transform anchorRef, GameObject Player1Ref, GameObject Player2Ref)
     {
         // Create The FrontPage
         Views = new Stack<Transform>();
         AnchorRef = anchorRef;
         Views.Push(AnchorRef);
-        GameObject Game = Instantiate(Resources.Load<GameObject>("Prefabs/BottomBar/BottomBar")) as GameObject;
-        Game.transform.SetParent(AnchorRef, false);
-
-        Views.Push(Game.transform);
+        GameObject BottomBarGO = Instantiate(Resources.Load<GameObject>("Prefabs/BottomBar/BottomBar")) as GameObject;
+        BottomBarGO.transform.SetParent(AnchorRef, false);
+        BottomBarRef = BottomBarGO.GetComponent<BottomBar>();
+        BottomBarRef.Initialize(Player1Ref);
+        Views.Push(BottomBarGO.transform);
         //GameObject FrontPage = Instantiate(Resources.Load<GameObject>("CardDetail/CardDetail")) as GameObject;
     }
 

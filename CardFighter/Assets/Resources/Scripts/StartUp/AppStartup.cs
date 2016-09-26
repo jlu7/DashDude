@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class AppStartup : MonoBehaviour
 {
-    public GameObject UIControllerRef;
-
     // Use this for initialization
     void Start()
     {
@@ -14,7 +12,7 @@ public class AppStartup : MonoBehaviour
 
     IEnumerator Startup()
     {
-        UIController.GetInstance().Initialize(UIControllerRef.transform);
+        GameController.GetInstance().Initialize();
         yield return null;
     }
 }
