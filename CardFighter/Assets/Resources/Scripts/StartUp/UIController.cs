@@ -31,7 +31,11 @@ public class UIController : MonoBehaviour
         GameObject BottomBarGO = Instantiate(Resources.Load<GameObject>("Prefabs/BottomBar/BottomBar")) as GameObject;
         BottomBarGO.transform.SetParent(AnchorRef, false);
         BottomBarRef = BottomBarGO.GetComponent<BottomBar>();
-        BottomBarRef.Initialize(Player1Ref);
+
+        List<Ability> abilities = new List<Ability>();
+        abilities.Add(new Hadouken());
+
+        BottomBarRef.Initialize(Player1Ref, abilities);
         Views.Push(BottomBarGO.transform);
         //GameObject FrontPage = Instantiate(Resources.Load<GameObject>("CardDetail/CardDetail")) as GameObject;
     }

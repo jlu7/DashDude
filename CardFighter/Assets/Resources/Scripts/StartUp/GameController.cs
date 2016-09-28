@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
 
 
         Player2 = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/Player")) as GameObject;
-        Player1.name = "Player2";
+        Player2.name = "Player2";
         Player2.transform.position = new Vector3(5, 0, 0);
         UIController.GetInstance().Initialize(UIControllerRef.transform, Player1, Player2);
     }

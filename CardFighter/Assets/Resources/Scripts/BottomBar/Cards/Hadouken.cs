@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hadouken : MonoBehaviour
+public class Hadouken : Ability
 {
-    public void Action()
+    public override void Action()
     {
-        Debug.Log("OLKSJDFLKJSDFLKJ");
+        GameObject tmp = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/HadoukenGO")) as GameObject;
+        tmp.transform.parent = this.transform;
     }
 }
