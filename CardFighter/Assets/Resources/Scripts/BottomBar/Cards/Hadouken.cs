@@ -7,5 +7,6 @@ public class Hadouken : Ability
     {
         GameObject tmp = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/HadoukenGO")) as GameObject;
         tmp.transform.parent = this.transform;
+        tmp.GetComponent<HadoukenBehaviour>().Owner = true;
     }
 }
