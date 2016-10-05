@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class GameController : MonoBehaviour 
 {
     private static GameController GC;
-    public GameObject UIControllerRef;
-
-    GameObject Player1;
-    GameObject Player2;
+    public GameObject Camera;
+    private static Stack<Transform> Views;
+    private Transform AnchorRef;
 
     public static GameController GetInstance()
     {
@@ -20,18 +21,28 @@ public class GameController : MonoBehaviour
 
     public void Initialize()
     {
-        UIControllerRef = Instantiate(Resources.Load<GameObject>("Prefabs/BottomBar/Camera")) as GameObject;
+        Camera = Instantiate(Resources.Load<GameObject>("Prefabs/BottomBar/Camera")) as GameObject;
 
-        // Create The Players
-        Player1 = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/Player")) as GameObject;
-        Player1.name = "Player1";
-        Player1.transform.position = new Vector3(-5, 0, 0);
-        Player1.AddComponent<Hadouken>();
+        // Create The FrontPage
+        Views = new Stack<Transform>();
+
+        BattleScreenController.GetInstance().Initialize(Camera.transform);
+    }
 
 
-        Player2 = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/Player")) as GameObject;
-        Player2.name = "Player2";
-        Player2.transform.position = new Vector3(5, 0, 0);
-        UIController.GetInstance().Initialize(UIControllerRef.transform, Player1, Player2);
+    public GameObject CreateView(string ViewLocation)
+    {
+        PushView(Instantiate(Resources.Load<GameObject>(ViewLocation)) as GameObject);
+        return Views.Peek().gameObject;
+    }
+
+    public void PushView(GameObject NewView)
+    {
+        Destroy(Views.Pop().gameObject);
+        NewView.transform.parent = AnchorRef;
+        NewView.transform.localScale = new Vector3(1, 1, 1);
+        NewView.transform.localPosition = new Vector3(0, 0, 0);
+
+        Views.Push(NewView.transform);
     }
 }

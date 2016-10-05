@@ -21,6 +21,7 @@ public class HadoukenBehaviour : MonoBehaviour
         Debug.Log(col.gameObject.name);
         if (col.gameObject.name == "Player2")
         {
+            BattleScreenController.GetInstance().playerLoseHealth(col.gameObject, 3);
             Debug.Log("BOOM");
             Destroy(this.gameObject);
         }
