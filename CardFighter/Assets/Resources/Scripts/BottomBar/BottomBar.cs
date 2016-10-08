@@ -19,7 +19,7 @@ public class BottomBar : MonoBehaviour
         {
             tmp.transform.Find("Button").GetComponent<Button>().onClick.AddListener(
                 () => 
-                    (Player1Ref.GetComponent(ability.GetType()) as Ability).Action()
+                    ability.Action()
                 );
         }
     }

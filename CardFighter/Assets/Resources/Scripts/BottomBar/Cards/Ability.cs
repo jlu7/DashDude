@@ -1,7 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public abstract class Ability : MonoBehaviour 
+public class Ability : MonoBehaviour 
 {
-    public abstract void Action();
+    public List<Action> Actions = new List<Action>();
+
+    public virtual void Action()
+    {
+        for (int i = 0; i < Actions.Count; i++)
+        {
+            Actions[i].Do();
+        }
+    }
 }

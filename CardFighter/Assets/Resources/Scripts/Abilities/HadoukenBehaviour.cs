@@ -5,7 +5,7 @@ public class HadoukenBehaviour : MonoBehaviour
 {
     public bool Owner;
 
-    public HadoukenBehaviour(bool owner)
+    public void Initialize(bool owner)
     {
         Owner = owner;
     }
@@ -19,11 +19,24 @@ public class HadoukenBehaviour : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log(col.gameObject.name);
-        if (col.gameObject.name == "Player2")
+
+        if (Owner)
         {
-            BattleScreenController.GetInstance().playerLoseHealth(col.gameObject, 3);
-            Debug.Log("BOOM");
-            Destroy(this.gameObject);
+            if (col.gameObject.name == "Player2")
+            {
+                BattleScreenController.GetInstance().playerLoseHealth(col.gameObject, 3);
+                Debug.Log("BOOM");
+                Destroy(this.gameObject);
+            }
+        }
+        else
+        {
+            if (col.gameObject.name == "Player1")
+            {
+                BattleScreenController.GetInstance().playerLoseHealth(col.gameObject, 3);
+                Debug.Log("BOOM");
+                Destroy(this.gameObject);
+            }
         }
     }
 }

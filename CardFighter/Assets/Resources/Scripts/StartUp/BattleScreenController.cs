@@ -29,7 +29,7 @@ public class BattleScreenController : MonoBehaviour
         GameObject tmpPlayer1 = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/Player")) as GameObject;
         tmpPlayer1.name = "Player1";
         tmpPlayer1.transform.position = new Vector3(-5, 0, 0);
-        tmpPlayer1.AddComponent<Hadouken>();
+        //tmpPlayer1.AddComponent<Hadouken>();
 
         GameObject tmpPlayer2 = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/Player")) as GameObject;
         tmpPlayer2.name = "Player2";
@@ -41,7 +41,10 @@ public class BattleScreenController : MonoBehaviour
         BottomBarRef = BottomBarGO.GetComponent<BottomBar>();
 
         List<Ability> abilities = new List<Ability>();
-        abilities.Add(new Hadouken());
+        List<Action> HadoukenActions = new List<Action>(){new Blast(tmpPlayer1)};
+        Ability Hadouken = new Ability();
+        Hadouken.Actions = HadoukenActions;
+        abilities.Add(Hadouken);
 
         BottomBarRef.Initialize(tmpPlayer1, abilities);
         GameObject TopBarGO = Instantiate(Resources.Load<GameObject>("Prefabs/BottomBar/TopBar")) as GameObject;
@@ -49,10 +52,10 @@ public class BattleScreenController : MonoBehaviour
 
         // Finally initialize the Players
         Player1 = tmpPlayer1.AddComponent<BasicCharacter>();
-        Player1.Initialize(TopBarGO, true, 20);
+        Player1.Initialize(TopBarGO, true, 20, abilities);
 
         Player2 = tmpPlayer2.AddComponent<BasicCharacter>();
-        Player2.Initialize(TopBarGO, false, 20);
+        Player2.Initialize(TopBarGO, false, 20, new List<Ability>());
     }
 
     public void playerLoseHealth(GameObject Player, int amount)
