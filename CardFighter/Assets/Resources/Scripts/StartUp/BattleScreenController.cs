@@ -41,10 +41,16 @@ public class BattleScreenController : MonoBehaviour
         BottomBarRef = BottomBarGO.GetComponent<BottomBar>();
 
         List<Ability> abilities = new List<Ability>();
-        List<Action> HadoukenActions = new List<Action>(){new Blast(tmpPlayer1)};
-        Ability Hadouken = new Ability();
+       
+		List<Action> HadoukenActions = new List<Action>(){new Blast(tmpPlayer1)};
+		Ability Hadouken = new Ability("Hadouken");
         Hadouken.Actions = HadoukenActions;
         abilities.Add(Hadouken);
+
+		List<Action> bigMidHitActions = new List<Action>(){new CreateSquare(tmpPlayer1)};
+		Ability bigMidHit = new Ability("Slash");
+		bigMidHit.Actions = bigMidHitActions;
+		abilities.Add(bigMidHit);
 
         BottomBarRef.Initialize(tmpPlayer1, abilities);
         GameObject TopBarGO = Instantiate(Resources.Load<GameObject>("Prefabs/BottomBar/TopBar")) as GameObject;
