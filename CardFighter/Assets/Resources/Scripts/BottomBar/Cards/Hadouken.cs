@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Hadouken : Ability
@@ -8,8 +8,9 @@ public class Hadouken : Ability
 		CardText = cardText;
 	}
 	
-    public override void Action()
+    public override IEnumerator Action()
     {
+        yield return null;
         GameObject tmp = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/HadoukenGO")) as GameObject;
         tmp.transform.parent = this.transform;
         tmp.GetComponent<HadoukenBehaviour>().Owner = true;

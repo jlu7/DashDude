@@ -24,7 +24,7 @@ public class BottomBar : MonoBehaviour
 
 			tmp.transform.Find("Button").GetComponent<Button>().onClick.AddListener(
 				() => 
-				ability.Action()
+				StartCoroutine(ability.Action())
 			);
             count++;
 		}

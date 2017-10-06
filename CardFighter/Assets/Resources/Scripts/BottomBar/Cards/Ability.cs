@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,11 +13,17 @@ public class Ability : MonoBehaviour
 		CardText = cardText;
 	}
 
-    public virtual void Action()
+    public virtual IEnumerator Action()
     {
         for (int i = 0; i < Actions.Count; i++)
         {
             Actions[i].Do();
+
+            while (!Actions[i].proxyAction.Complete)
+            {
+                yield return null;
+            }
+            Debug.Log("Completed: " + i);
         }
     }
 }
