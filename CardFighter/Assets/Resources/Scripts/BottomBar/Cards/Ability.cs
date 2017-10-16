@@ -18,11 +18,13 @@ public class Ability : MonoBehaviour
         for (int i = 0; i < Actions.Count; i++)
         {
             Actions[i].Do();
+            Debug.Log("Began: " + i);
 
             while (!Actions[i].proxyAction.Complete)
             {
                 yield return null;
             }
+
             Debug.Log("Completed: " + i);
         }
     }

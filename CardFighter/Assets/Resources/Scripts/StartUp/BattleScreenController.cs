@@ -50,12 +50,17 @@ public class BattleScreenController : MonoBehaviour
         List<Action> bigMidHitActions = new List<Action>(){new CreateSquare(tmpPlayer1)};
 		Ability bigMidHit = new Ability("Slash");
 		bigMidHit.Actions = bigMidHitActions;
-		abilities.Add(bigMidHit);
-		abilities.Add(bigMidHit);
-		abilities.Add(bigMidHit);
-		abilities.Add(bigMidHit);
-		abilities.Add(bigMidHit);
-		abilities.Add(bigMidHit);
+        abilities.Add(bigMidHit);
+
+        List<Action> MoveForwardActions = new List<Action>() { new MoveStraight(tmpPlayer1, new Vector3(1, 0), 1f), new CreateSquare(tmpPlayer1)};
+        Ability DashForward = new Ability("Dash Forward");
+        DashForward.Actions = MoveForwardActions;
+		abilities.Add(DashForward);
+
+		//abilities.Add(bigMidHit);
+		//abilities.Add(bigMidHit);
+		//abilities.Add(bigMidHit);
+		//abilities.Add(bigMidHit);
 
         BottomBarRef.Initialize(tmpPlayer1, abilities);
         GameObject TopBarGO = Instantiate(Resources.Load<GameObject>("Prefabs/BottomBar/TopBar")) as GameObject;

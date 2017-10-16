@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class HitBoxBehaviour : MonoBehaviour 
@@ -16,6 +16,8 @@ public class HitBoxBehaviour : MonoBehaviour
 		Life = life;
 		Position = position;
 		Scale = scale;
+        this.transform.localScale = Scale;
+        this.transform.localPosition = Position;
 	}
 
 	// Update is called once per frame

@@ -26,9 +26,11 @@ public class CreateSquare : Action
     {
         GameObject tmp = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerObjects/HitBox")) as GameObject;
         tmp.transform.parent = Owner.transform;
-        tmp.GetComponent<HitBoxBehaviour>().Initialize(Owner, 1, 1f, new Vector3(0, 0, 0), new Vector3(4, 4, 0));
-        yield return new WaitForSeconds(5f);
+        tmp.GetComponent<HitBoxBehaviour>().Initialize(Owner, 1, 1f, new Vector3(1, 0, 0), new Vector3(3, 1, 0));
+        yield return new WaitForSeconds(1f);
         Complete = true;
         yield return null;
+        Destroy(tmp);
+        Destroy(this);
     }
 }
