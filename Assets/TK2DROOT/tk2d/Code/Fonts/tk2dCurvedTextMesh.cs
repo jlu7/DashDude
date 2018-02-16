@@ -448,7 +448,7 @@ public class tk2dCurvedTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionFo
         {
             if (_cachedRenderer == null)
             {
-                _cachedRenderer = renderer;
+                _cachedRenderer = GetComponent<Renderer>();
             }
             return _cachedRenderer;
         }
@@ -786,7 +786,7 @@ public class tk2dCurvedTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionFo
         }
         else if (Camera.main)
         {
-            if (Camera.main.isOrthoGraphic)
+            if (Camera.main.orthographic)
             {
                 s = Camera.main.orthographicSize;
             }
@@ -812,8 +812,8 @@ public class tk2dCurvedTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionFo
 
     void UpdateMaterial()
     {
-        if (renderer.sharedMaterial != _fontInst.materialInst)
-            renderer.material = _fontInst.materialInst;
+        if (GetComponent<Renderer>().sharedMaterial != _fontInst.materialInst)
+            GetComponent<Renderer>().material = _fontInst.materialInst;
     }
 
     public void ForceBuild()

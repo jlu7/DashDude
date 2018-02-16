@@ -27,7 +27,7 @@ public class PlayerController : Actor
 
     void Start()
     {
-        rigidbody2D.fixedAngle = true;
+        GetComponent<Rigidbody2D>().fixedAngle = true;
 		PlayerStateChanged(PlayerState.NotDashing);
         triggerVolume.OnVolumeEntered += OnCollisionDetected;
     }
@@ -47,7 +47,7 @@ public class PlayerController : Actor
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            this.rigidbody2D.gravityScale = -this.rigidbody2D.gravityScale;
+            this.GetComponent<Rigidbody2D>().gravityScale = -this.GetComponent<Rigidbody2D>().gravityScale;
         }
 
         Vector3 pos = new Vector3();
@@ -63,8 +63,8 @@ public class PlayerController : Actor
         {
             //State = PlayerState.NotDashing;
 			PlayerStateChanged(PlayerState.NotDashing);
-            this.rigidbody2D.velocity = new Vector2(0,0);
-            rigidbody2D.gravityScale = 1;
+            this.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+            GetComponent<Rigidbody2D>().gravityScale = 1;
             doOnce = false;
         }
 
@@ -78,8 +78,8 @@ public class PlayerController : Actor
             //Debug.Log(pos);
             pos = pos - transform.position;
             doOnce = true;
-            rigidbody2D.gravityScale = 0;
-            this.rigidbody2D.AddForce(pos * 500);
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+            this.GetComponent<Rigidbody2D>().AddForce(pos * 500);
 
             Jumps--;
         }
